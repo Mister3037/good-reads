@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import *
 
+
 # Create your views here.
 
 # Create User View
@@ -30,6 +31,7 @@ class RegisterView(View):
             }
             return render(request, "users/register.html", context)
 
+
 class LoginView(View):
     def get(self, request):
         login_form = AuthenticationForm()
@@ -50,7 +52,7 @@ class LoginView(View):
             return render(request, "users/login.html", {"login_form": login_form})
 
 
-class ProfileView(LoginRequiredMixin,View):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("users:login")
@@ -77,4 +79,3 @@ class ProfileUpdateVIEW(LoginRequiredMixin, View):
             return redirect("users:profile")
         else:
             return render(request, 'users/profile_edit.html', {"form": user_update_form})
-
